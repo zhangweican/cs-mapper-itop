@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.chinanetcenter.itop.mapper.mybatis.entry.TUserLogin;
-import com.chinanetcenter.itop.mapper.mybatis.entry.TUserLoginExample;
-import com.chinanetcenter.itop.mapper.service.TUserLoginService;
+import com.chinanetcenter.mapper.itop.mybatis.entry.TUserLogin;
+import com.chinanetcenter.mapper.itop.mybatis.entry.TUserLoginExample;
+import com.chinanetcenter.mapper.itop.service.TUserLoginService;
 import com.github.pagehelper.PageInfo;
 
 /**
