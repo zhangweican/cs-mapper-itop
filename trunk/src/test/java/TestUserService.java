@@ -23,23 +23,18 @@ import com.github.pagehelper.PageInfo;
 @ContextConfiguration(locations = {"classpath:applicationContext-mapper-itop.xml","classpath:applicationContext-service.xml","classpath:spring-mybatis.xml" })
 public class TestUserService {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(TestUserService.class);
+	private static final Logger LOGGER = Logger.getLogger(TestUserService.class);
 
 	@Autowired
 	private TUserLoginService tUserLoginService;
 
 	@Test
 	public void testInsert() {
-		TUserLoginExample e = new TUserLoginExample();
-		e.createCriteria().andUsernameEqualTo("U_" + -1);
-		tUserLoginService.deleteByExample(e);
+		delete("testInsert");
 		
-		int i = -1;
 		TUserLogin userInfo = new TUserLogin();
-		userInfo.setId(Long.parseLong(i + ""));
-		userInfo.setUsername("U_" + i);
-		userInfo.setPassword("P_" + i);
+		userInfo.setUsername("testInsert");
+		userInfo.setPassword("testInsert");
 		userInfo.setLoginDate(Calendar.getInstance().getTime());
 		int result = tUserLoginService.insert(userInfo);
 		
@@ -48,11 +43,9 @@ public class TestUserService {
 	
 	@Test
 	public void testTransaction() {
-		int i = -1111;
 		TUserLogin userInfo = new TUserLogin();
-		userInfo.setId(Long.parseLong(i + ""));
-		userInfo.setUsername("U_" + i);
-		userInfo.setPassword("P_" + i);
+		userInfo.setUsername("testTransaction");
+		userInfo.setPassword("testTransaction");
 		userInfo.setLoginDate(Calendar.getInstance().getTime());
 		try {
 			tUserLoginService.insertByRollBack(userInfo);
@@ -61,7 +54,7 @@ public class TestUserService {
 		}
 		
 		TUserLoginExample e = new TUserLoginExample();
-		e.createCriteria().andUsernameEqualTo("U_" + i);
+		e.createCriteria().andUsernameEqualTo("testTransaction");
 		TUserLogin t = tUserLoginService.selectOne(e);
 		
 		Assert.assertTrue(t == null);
@@ -69,35 +62,54 @@ public class TestUserService {
 	
 	@Test
 	public void testQueryPage() {
+		add("testQueryPage");
+		
 		PageInfo<TUserLogin> pi = tUserLoginService.selectByExample(null, 3, 10);
 		LOGGER.info("PageInfo:" + pi.toString());
 		Assert.assertTrue(pi.getTotal() > 0);
-	}
-	@Test
-	public void testQueryPage2() {
-		PageInfo<TUserLogin> pi = tUserLoginService.selectByExample(null, 3, 10);
-		LOGGER.info("PageInfo:" + pi.toString());
-		Assert.assertTrue(pi.getTotal() > 0);
+		
+		delete("testQueryPage");
 	}
 	@Test
 	public void testSelectOne() {
+		add("testSelectOne");
+		
 		TUserLoginExample e = new TUserLoginExample();
-		e.createCriteria().andUsernameEqualTo("U_" + -1);
+		e.createCriteria().andUsernameEqualTo("testSelectOne");
 		TUserLogin t = tUserLoginService.selectOne(e);
 		LOGGER.info("XXX:" + t.getUsername());
 		Assert.assertTrue(t != null);
+		
+		delete("testSelectOne");
 	}
 	@Test
 	public void testFindAll() {
+		add("testFindAll");
 		List<TUserLogin> result = tUserLoginService.findAll();
 		Assert.assertTrue(result.size() > 0);
+		delete("testFindAll");
 	}
 	@Test
 	public void testDelete() {
+		add("testDelete");
 		TUserLoginExample e = new TUserLoginExample();
-		e.createCriteria().andUsernameEqualTo("U_" + -1);
+		e.createCriteria().andUsernameEqualTo("testDelete");
 		int result = tUserLoginService.deleteByExample(e);
 		Assert.assertTrue(result == 1);
+	}
+	
+	//==============公共方法================
+	public void add(String username){
+		TUserLogin userInfo = new TUserLogin();
+		userInfo.setUsername(username);
+		userInfo.setPassword(username);
+		userInfo.setLoginDate(Calendar.getInstance().getTime());
+		tUserLoginService.insert(userInfo);
+	}
+	public void delete(String username){
+		TUserLoginExample e = new TUserLoginExample();
+		e.createCriteria().andUsernameEqualTo(username);
+		tUserLoginService.deleteByExample(e);
 	}
 
 }
