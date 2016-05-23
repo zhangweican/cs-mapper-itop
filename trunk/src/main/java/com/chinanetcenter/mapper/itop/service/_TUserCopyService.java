@@ -1,20 +1,20 @@
 package com.chinanetcenter.mapper.itop.service;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
+import com.chinanetcenter.mapper.itop.mybatis.dao.TUserCopyMapper;
+import com.chinanetcenter.mapper.itop.mybatis.entry.TUserCopy;
+import com.chinanetcenter.mapper.itop.mybatis.entry.TUserCopyExample;
+import com.chinanetcenter.mapper.itop.mybatis.entry.TUserCopyKey;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
-
-import com.chinanetcenter.mapper.itop.mybatis.dao.*;
-import com.chinanetcenter.mapper.itop.mybatis.entry.*;
-import com.leweiyou.service.util.Commons;
-
-import java.util.List;
-import java.util.Set;
+import com.leweiyou.framework.util.Commons;
 
 /**
  * 凡是以_开头的Service类，都属于自动生成的类，不提倡在这里添加service方法，请在XXXXService类里加自定义方法。
