@@ -2,5 +2,9 @@
     <wb-module deploy-name="cs-mapper-itop">
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <property name="context-root" value="cs-mapper-itop"/>
+        <property name="java-output-path" value="/cs-mapper-itop/target/classes"/>
     </wb-module>
 </project-modules>
